@@ -9,7 +9,7 @@ $uploadUrl = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=".
 //               'msgtype' => 'text',
 //               'text' => array('content' => $msg));
 $rawData = array('articles' => array(
-    $item1 = array('thumb_media_id' => $imgUri,
+    $item1 = array('thumb_media_id' => $imgID,
                     'author' => "yy",
                     'title' => "test img msg",
                     'content_source_url' => "www.baidu.com",
