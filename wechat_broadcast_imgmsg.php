@@ -25,7 +25,7 @@ $rawData = array('articles' => array(
                     'author' => "yy",
                     'title' => "test img msg",
                     'content_source_url' => "www.baidu.com",
-                    'content' => "contents here",
+                    'content' => "<a>contents here</a>",
                     'digest' => "digest",
                     'show_cover_pic' => 1)
 ));
@@ -53,8 +53,7 @@ $artID = json_decode($result, true)['media_id'];
 $broadCastServiceURL = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$accToken;
 $rawData = array('filter' => array('is_to_all' => true),
                  'mpnews' => array('media_id' => $artID),
-                 'msgtype' => "image"
-);
+                 'msgtype' => "mpnews");
 $data = json_encode($rawData);
 
 $curl = curl_init();
