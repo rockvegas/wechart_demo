@@ -50,8 +50,11 @@ var_dump($result);
 $artID = json_decode($result, true)['media_id'];
 
 //send broad cast img msg...
-$broadCastServiceURL = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$accToken;
-$rawData = array('filter' => array('is_to_all' => true),
+$broadCastServiceURL = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=".$accToken;
+$rawData = array('touser' => array("o87I9xJpJ-aIfETL9vJ_jFRu8AmI",
+                                   "o87I9xD2JytH7tyudW5RxsUiUhAQ",
+                                   "o87I9xN5zA62tg1GtUS6iQfsl3wI",
+                                   "o87I9xAYxHY2qNjSgu8aBQLU8G5g"),
                  'mpnews' => array('media_id' => $artID),
                  'msgtype' => "mpnews");
 $data = json_encode($rawData);
