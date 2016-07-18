@@ -13,7 +13,6 @@ $result=json_decode($json, true);
 //var_dump($result);
 $accToken=$result['access_token'];
 
-$accToken = "M-9OXPZlt4nWtr4yuy8lYtSR9t5ohh7as4mHFIp2Lz_w1Lsqr9iCA83Vt9gyhBomIAiRyQiJdV9c6b0v-ZIpmYYUUh4Qj7iD9vArqkwCJGLHhgcnK_CgIRa9Ubp4WUBRBNKaAHARDA";
 $imgUri = "http://mmbiz.qpic.cn/mmbiz/M2mv954iaHeku9iaKl0djmv8LHjMsjpPmltxM1BR4c9bslxrbgc2ibcMm4qo83tczx6qaicIGLLbdI5mdPGEuAf6lg/0";
 $imgID = "p4_BtL0HLohIZbne0RygSPbJwskErSHwIazWhDjK5K7YbQUNWbKCaYiJx1EAykeo";
 
@@ -47,8 +46,31 @@ if (curl_errno($curl)) {
 curl_close($curl);
 
 var_dump($result);
-//artical id:  4g4FLSc5J8BfzJj3Eg41rvI5d28bekX4P0dOnHrTeWPYP3e7oWR4udKhzRGPUdvp
 
-//TODO: send broad cast img msg...
+$artID = json_decode($result, true)['media_id'];
+
+//send broad cast img msg...
+$broadCastServiceURL = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$accToken;
+$rawData = array('filter' => array('is_to_all' => true),
+                 'mpnews' => array('media_id' => $artID),
+                 'msgtype' => "image"
+);
+$data = json_encode($rawData);
+
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, $broadCastServiceURL); 
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                            
+$result = curl_exec($curl);
+if (curl_errno($curl)) {
+    return 'Errno'.curl_error($curl);
+}
+curl_close($curl);
+
+var_dump($result);
 
 ?>
